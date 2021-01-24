@@ -1,2 +1,8 @@
 class StatuesController < ApplicationController
-end
+
+    def index 
+        @statues = Statue.all 
+        render json: {statues: @statues}, status: :ok
+    end
+
+end 
