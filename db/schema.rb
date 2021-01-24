@@ -10,12 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_24_205609) do
+ActiveRecord::Schema.define(version: 2021_01_24_213405) do
+
+  create_table "attractions", force: :cascade do |t|
+    t.string "name"
+    t.integer "location_id", null: false
+    t.integer "statue_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["location_id"], name: "index_attractions_on_location_id"
+    t.index ["statue_id"], name: "index_attractions_on_statue_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.boolean "allows_dogs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "statues", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "rating"
   end
 
+  add_foreign_key "attractions", "locations"
+  add_foreign_key "attractions", "statues"
 end
